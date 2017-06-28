@@ -62,6 +62,15 @@ public class MainActivity extends AppCompatActivity
 //        mUserFragmentText=(TextView)findViewById(R.id.userTextView);
 //        mUserFragmentText.setText(userValue);
 //        ((TextView)f6.getView().findViewById(R.id.userTextView)).setText("hahaha");
+
+        Bundle bundle = new Bundle();
+        bundle.putString("str", userValue);
+        f6.setArguments(bundle);
+        //如果transaction  commit（）过  那么我们要重新得到transaction
+        transaction = manager.beginTransaction();
+//        transaction.replace(R.id.contents, fragment1);
+//        transaction.commit();
+
         transaction.replace(R.id.fl_content, f6);
         transaction.commit();
     }
