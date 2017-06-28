@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment f1,f2,f3,f4,f5,f6,f7;
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    private TextView mUserText,mUserFragmentText;
+    private TextView mUserText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +51,18 @@ public class MainActivity extends AppCompatActivity
         mUserText = (TextView)headerLayout.findViewById(R.id.userTextView);
         mUserText.setText(userValue);
 
+        f1 = new NewFragment();
+        f2 = new ReportFragment();
+        f3 = new TopicFragment();
+        f4 = new GroupFragment();
+        f5 = new KeywordFragment();
+        f6 = new UserFragment();
+        f7 = new AboutFragment();
+
 //        mUserFragmentText=(TextView)findViewById(R.id.userTextView);
 //        mUserFragmentText.setText(userValue);
-
-        f1 = new NewFragment();
-        transaction.replace(R.id.fl_content, f1);
+//        ((TextView)f6.getView().findViewById(R.id.userTextView)).setText("hahaha");
+        transaction.replace(R.id.fl_content, f6);
         transaction.commit();
     }
 
@@ -99,37 +106,30 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_new) {
             hideFragment(transaction);
-            f1 = new NewFragment();
             transaction.replace(R.id.fl_content, f1);
             transaction.commit();
         } else if (id == R.id.nav_report) {
             hideFragment(transaction);
-            f2 = new ReportFragment();
             transaction.replace(R.id.fl_content, f2);
             transaction.commit();
         } else if (id == R.id.nav_topic) {
             hideFragment(transaction);
-            f3 = new TopicFragment();
             transaction.replace(R.id.fl_content, f3);
             transaction.commit();
         } else if (id == R.id.nav_group) {
             hideFragment(transaction);
-            f4 = new GroupFragment();
             transaction.replace(R.id.fl_content, f4);
             transaction.commit();
         } else if (id == R.id.nav_keyword) {
             hideFragment(transaction);
-            f5 = new KeywordFragment();
             transaction.replace(R.id.fl_content, f5);
             transaction.commit();
         } else if (id == R.id.nav_user) {
             hideFragment(transaction);
-            f6 = new UserFragment();
             transaction.replace(R.id.fl_content, f6);
             transaction.commit();
         } else if (id == R.id.nav_about) {
             hideFragment(transaction);
-            f7 = new AboutFragment();
             transaction.replace(R.id.fl_content, f7);
             transaction.commit();
         }
@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity
     * */
     private void hideFragment(FragmentTransaction transaction) {
         if (f1 != null) {
-            //transaction.hide(f1);隐藏方法也可以实现同样的效果，不过我一般使用去除
-            transaction.remove(f1);
+            transaction.hide(f1);
+            //transaction.remove(f1);
         }
     }
 
