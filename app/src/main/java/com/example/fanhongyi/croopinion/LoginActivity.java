@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, MainActivity.class);
+            intent.putExtra("u", username.getText().toString());
             startActivity(intent);
         }
         else{
