@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        //head = (ImageView) headerLayout.findViewById(R.id.Iamge_mine_head);
         mUserText = (TextView)headerLayout.findViewById(R.id.userTextView);
         mUserText.setText(userValue);
 
@@ -59,19 +59,12 @@ public class MainActivity extends AppCompatActivity
         f6 = new UserFragment();
         f7 = new AboutFragment();
 
-//        mUserFragmentText=(TextView)findViewById(R.id.userTextView);
-//        mUserFragmentText.setText(userValue);
-//        ((TextView)f6.getView().findViewById(R.id.userTextView)).setText("hahaha");
-
         Bundle bundle = new Bundle();
         bundle.putString("str", userValue);
         f6.setArguments(bundle);
         //如果transaction  commit（）过  那么我们要重新得到transaction
         transaction = manager.beginTransaction();
-//        transaction.replace(R.id.contents, fragment1);
-//        transaction.commit();
-
-        transaction.replace(R.id.fl_content, f6);
+        transaction.replace(R.id.fl_content, f1);
         transaction.commit();
     }
 
@@ -111,38 +104,33 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
         // Handle navigation view item clicks here.
+        //hideFragment(transaction);
         int id = item.getItemId();
         if (id == R.id.nav_new) {
-            hideFragment(transaction);
+            Toast.makeText(getApplicationContext(), "nav_new",
+                    Toast.LENGTH_SHORT).show();
             transaction.replace(R.id.fl_content, f1);
-            transaction.commit();
         } else if (id == R.id.nav_report) {
-            hideFragment(transaction);
+            Toast.makeText(getApplicationContext(), "nav_report",
+                    Toast.LENGTH_SHORT).show();
             transaction.replace(R.id.fl_content, f2);
-            transaction.commit();
         } else if (id == R.id.nav_topic) {
-            hideFragment(transaction);
+            Toast.makeText(getApplicationContext(), "nav_topic",
+                    Toast.LENGTH_SHORT).show();
             transaction.replace(R.id.fl_content, f3);
-            transaction.commit();
         } else if (id == R.id.nav_group) {
-            hideFragment(transaction);
             transaction.replace(R.id.fl_content, f4);
-            transaction.commit();
         } else if (id == R.id.nav_keyword) {
-            hideFragment(transaction);
             transaction.replace(R.id.fl_content, f5);
-            transaction.commit();
         } else if (id == R.id.nav_user) {
-            hideFragment(transaction);
             transaction.replace(R.id.fl_content, f6);
-            transaction.commit();
         } else if (id == R.id.nav_about) {
-            hideFragment(transaction);
             transaction.replace(R.id.fl_content, f7);
-            transaction.commit();
         }
-
+        transaction.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
