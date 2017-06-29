@@ -1,5 +1,6 @@
 package com.example.fanhongyi.croopinion;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class UserFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
             }
         });
     }
