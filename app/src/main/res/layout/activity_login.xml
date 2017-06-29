@@ -58,6 +58,24 @@
         android:ems="10"
         android:inputType="textPassword" />
 
+    <CheckBox
+        android:id="@+id/remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Remember"
+        android:layout_above="@+id/autologin"
+        android:layout_alignLeft="@+id/autologin"
+        android:layout_alignStart="@+id/autologin"/>
+
+    <CheckBox
+        android:id="@+id/autologin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Autologin"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"/>
+
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
