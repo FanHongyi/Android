@@ -4,11 +4,6 @@
               android:layout_height="match_parent"
               android:gravity="top"
               android:orientation="vertical" >
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_gravity="top"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -16,6 +11,11 @@
         android:gravity="center"
         android:textSize="25sp"
         android:text="REPORT_FRAGMENT" />
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="top"/>
 
 </LinearLayout>
 
