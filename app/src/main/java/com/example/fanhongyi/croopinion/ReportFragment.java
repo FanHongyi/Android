@@ -16,8 +16,11 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.ArrayList;
+
+import static android.R.attr.data;
 
 /**
  * Created by FANHONGYI on 2017/6/27.
@@ -86,8 +89,10 @@ public class ReportFragment extends Fragment{
         Legend mLegend = pieChart.getLegend();  //设置比例图
         mLegend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);  //最右边显示
 //      mLegend.setForm(LegendForm.LINE);  //设置比例图的形状，默认是方形
+        mLegend.setFormSize(15f);//比例块大小
         mLegend.setXEntrySpace(7f);
         mLegend.setYEntrySpace(5f);
+        //mLegend.setEnabled(false);//设置禁用比例块
 
         pieChart.animateXY(1000, 1000);  //设置动画
         // mChart.spin(2000, 0, 360);
@@ -139,6 +144,9 @@ public class ReportFragment extends Fragment{
         pieDataSet.setSelectionShift(px); // 选中态多出的长度
 
         PieData pieData = new PieData(xValues, pieDataSet);
+        // 设置成PercentFormatter将追加%号
+        pieData.setValueFormatter(new PercentFormatter());
+        pieData.setValueTextSize(15f);
 
         return pieData;
     }
