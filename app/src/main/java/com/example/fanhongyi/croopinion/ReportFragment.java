@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -41,12 +43,12 @@ public class ReportFragment extends Fragment{
 
         this.context = getActivity();
         mPieChart = (PieChart) view.findViewById(R.id.pieChart);
-        PieData mPieData = getPieData(3, 100);
+        PieData mPieData = getPieData();
         showPieChart(mPieChart, mPieData);
 
         mLineChart = (LineChart) view.findViewById(R.id.lineChart);
-        LineData mLineData = getLineData(36, 100);
-        showLineChart(mLineChart, mLineData, Color.rgb(114, 188, 223));
+        LineData mLineData = getLineData(7, 20);
+        showLineChart(mLineChart, mLineData);
 
         return view;
     }
@@ -104,7 +106,7 @@ public class ReportFragment extends Fragment{
         // mChart.spin(2000, 0, 360);
     }
 
-    private PieData getPieData(int count, float range) {
+    private PieData getPieData() {
 
         ArrayList<String> xValues = new ArrayList<String>();  //xVals用来表示每个饼块上的内容
 
@@ -157,7 +159,7 @@ public class ReportFragment extends Fragment{
         return pieData;
     }
 
-    private void showLineChart(LineChart lineChart, LineData lineData, int color) {
+    private void showLineChart(LineChart lineChart, LineData lineData) {
         lineChart.setDrawBorders(false);  //是否在折线图上添加边框
 
         // no description text
@@ -166,20 +168,42 @@ public class ReportFragment extends Fragment{
         lineChart.setNoDataTextDescription("You need to provide data for the chart.");
 
         // enable / disable grid background
-        lineChart.setDrawGridBackground(false); // 是否显示表格颜色
-        lineChart.setGridBackgroundColor(Color.WHITE & 0x70FFFFFF); // 表格的的颜色，在这里是是给颜色设置一个透明度
+        lineChart.setDrawGridBackground(true); // 是否显示表格颜色
+        lineChart.setGridBackgroundColor(Color.WHITE); // 表格的的颜色，在这里是是给颜色设置一个透明度
 
         // enable touch gestures
-        lineChart.setTouchEnabled(true); // 设置是否可以触摸
+        lineChart.setTouchEnabled(false); // 设置是否可以触摸
 
         // enable scaling and dragging
-        lineChart.setDragEnabled(true);// 是否可以拖拽
-        lineChart.setScaleEnabled(true);// 是否可以缩放
+        lineChart.setDragEnabled(false);// 是否可以拖拽
+        lineChart.setScaleEnabled(false);// 是否可以缩放
+
+        XAxis xAxis = lineChart.getXAxis();
+        // 不显示y轴
+        xAxis.setDrawAxisLine(false);
+        // 不从y轴发出横向直线
+        xAxis.setDrawGridLines(false);
+
+        YAxis leftAxis = lineChart.getAxisLeft();
+        // 不显示y轴
+        leftAxis.setDrawAxisLine(false);
+        // 不从y轴发出横向直线
+        leftAxis.setDrawGridLines(false);
+
+        YAxis rightAxis = lineChart.getAxisRight();
+        // 不显示y轴
+        rightAxis.setDrawAxisLine(false);
+        // 不从y轴发出横向直线
+        rightAxis.setDrawGridLines(false);
+
+        lineChart.getAxisRight().setEnabled(false); // 隐藏右边 的坐标轴
+
+        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM); // 让x轴在下面
 
         // if disabled, scaling can be done on x- and y-axis separately
         lineChart.setPinchZoom(false);//
 
-        //lineChart.setBackgroundColor(color);// 设置背景
+        //lineChart.setBackgroundColor(Color.WHITE);// 设置背景
 
         // add data
         lineChart.setData(lineData); // 设置数据
@@ -189,6 +213,7 @@ public class ReportFragment extends Fragment{
 
         // modify the legend ...
         // mLegend.setPosition(LegendPosition.LEFT_OF_CHART);
+        mLegend.setEnabled(false);
         mLegend.setForm(Legend.LegendForm.CIRCLE);// 样式
         mLegend.setFormSize(6f);// 字体
         mLegend.setTextColor(Color.WHITE);// 颜色
