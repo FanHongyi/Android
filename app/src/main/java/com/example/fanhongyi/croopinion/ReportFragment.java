@@ -21,6 +21,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.ns.developer.tagview.entity.Tag;
+import com.ns.developer.tagview.widget.TagCloudLinkView;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,7 @@ public class ReportFragment extends Fragment{
     private PieChart mPieChart;
     private LineChart mLineChart;
     private Context context;
+    private TagCloudLinkView cloud;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container,
@@ -49,6 +52,18 @@ public class ReportFragment extends Fragment{
         mLineChart = (LineChart) view.findViewById(R.id.lineChart);
         LineData mLineData = getLineData(7, 20);
         showLineChart(mLineChart, mLineData);
+
+        cloud = (TagCloudLinkView) view.findViewById(R.id.tagCloud);
+        cloud.add(new Tag(1,"TAG TEXT 1"));
+        cloud.add(new Tag(1,"TAG TEXT 2"));
+        cloud.add(new Tag(1,"TAG TEXT 3"));
+        cloud.drawTags();
+        cloud.setOnTagSelectListener(new TagCloudLinkView.OnTagSelectListener(){
+            @Override
+            public void onTagSelected(Tag tag, int i) {
+                // write something
+            }
+        });
 
         return view;
     }

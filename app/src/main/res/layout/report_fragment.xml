@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="top"
-    android:orientation="vertical" >
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -17,6 +18,7 @@
             android:gravity="center"
             android:textSize="25sp"
             android:text="REPORT_FRAGMENT" />
+
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
             android:layout_width="match_parent"
@@ -27,5 +29,18 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_gravity="top"/>
+
+        <com.ns.developer.tagview.widget.TagCloudLinkView
+            android:id="@+id/tagCloud"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:background="#ffffff"
+            app:isDeletable="false"
+            app:tagLayoutColor="#808080"
+            app:tagTextSize="8sp"
+            app:tagTextColor="#ff9acd32"
+            app:deletableTextSize="8sp"
+            app:deletableTextColor="#ff9acd32"/>
     </LinearLayout>
 </ScrollView>
