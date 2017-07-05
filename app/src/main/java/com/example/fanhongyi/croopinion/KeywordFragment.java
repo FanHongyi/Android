@@ -56,6 +56,7 @@ public class KeywordFragment extends Fragment{
                 if(!mTopic.getText().toString().equals("")){
                     Toast.makeText(getActivity(), mTopic.getText().toString(), Toast.LENGTH_LONG).show();
                     userTags.add(new Tag(1,mTopic.getText().toString()));
+                    userTags.drawTags();
                     mTopic.setText("");
                 }
             }
