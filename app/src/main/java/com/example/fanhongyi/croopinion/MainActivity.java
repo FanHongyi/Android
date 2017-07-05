@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         f6.setArguments(bundle);
         //如果transaction  commit（）过  那么我们要重新得到transaction
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.fl_content, f2);
+        transaction.replace(R.id.fl_content, f5);
         transaction.commit();
     }
 
