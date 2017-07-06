@@ -53,11 +53,8 @@ public class MainActivity extends AppCompatActivity
 
         f1 = new NewFragment();
         f2 = new ReportFragment();
-        f3 = new TopicFragment();
-        f4 = new GroupFragment();
         f5 = new KeywordFragment();
         f6 = new UserFragment();
-        f7 = new AboutFragment();
 
         Bundle bundle = new Bundle();
         bundle.putString("str", userValue);
