@@ -79,28 +79,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -117,18 +95,10 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "nav_report",
                     Toast.LENGTH_SHORT).show();
             transaction.replace(R.id.fl_content, f2);
-        } else if (id == R.id.nav_topic) {
-            Toast.makeText(getApplicationContext(), "nav_topic",
-                    Toast.LENGTH_SHORT).show();
-            transaction.replace(R.id.fl_content, f3);
-        } else if (id == R.id.nav_group) {
-            transaction.replace(R.id.fl_content, f4);
         } else if (id == R.id.nav_keyword) {
             transaction.replace(R.id.fl_content, f5);
         } else if (id == R.id.nav_user) {
             transaction.replace(R.id.fl_content, f6);
-        } else if (id == R.id.nav_about) {
-            transaction.replace(R.id.fl_content, f7);
         }
         transaction.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
