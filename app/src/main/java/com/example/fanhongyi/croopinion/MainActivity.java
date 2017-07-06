@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private TextView mUserText;
+    public static String[] newTopic=new String[10];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         Intent intent=getIntent();
         String userValue=intent.getStringExtra("u");
+
+        newTopic[0]="a";
+        newTopic[1]="b";
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();

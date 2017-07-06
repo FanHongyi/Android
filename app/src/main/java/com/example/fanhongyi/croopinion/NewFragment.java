@@ -40,8 +40,8 @@ public class NewFragment extends Fragment{
         hot8=(TextView)list8.findViewById(R.id.hot);
         hot9=(TextView)list9.findViewById(R.id.hot);
 
-        hot0.setText("topic 0");
-        hot1.setText("topic 1");
+        hot0.setText(MainActivity.newTopic[0]);
+        hot1.setText(MainActivity.newTopic[1]);
         hot2.setText("topic 2");
         hot3.setText("topic 3");
         hot4.setText("topic 4");
