@@ -1,45 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:gravity="center"
-              android:orientation="vertical">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="top"
+    android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+                  android:orientation="vertical">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:text="KEYWORD_FRAGMENT" />
-    <TextView
-        android:id="@+id/keywordView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="添加关键词："/>
-    <EditText
-        android:id="@+id/editTopic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10" >
-        <requestFocus />
-    </EditText>
-    <Button
-        android:id="@+id/selectButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="确定" />
-    <com.ns.developer.tagview.widget.TagCloudLinkView
-        android:id="@+id/userTags"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp"
-        android:background="#ffffff"
-        app:isDeletable="true"
-        app:tagLayoutColor="#808080"
-        app:tagTextSize="8sp"
-        app:tagTextColor="#ff9acd32"
-        app:deletableTextSize="8sp"
-        app:deletableTextColor="#ff9acd32"/>
-</LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:text="KEYWORD_FRAGMENT" />
+        <TextView
+            android:id="@+id/keywordView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加关键词："/>
+        <EditText
+            android:id="@+id/editTopic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10" >
+            <requestFocus />
+        </EditText>
+        <Button
+            android:id="@+id/selectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定" />
+        <com.ns.developer.tagview.widget.TagCloudLinkView
+            android:id="@+id/userTags"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:background="#ffffff"
+            app:isDeletable="true"
+            app:tagLayoutColor="#808080"
+            app:tagTextSize="8sp"
+            app:tagTextColor="#ff9acd32"
+            app:deletableTextSize="8sp"
+            app:deletableTextColor="#ff9acd32"/>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="top"/>
+    </LinearLayout>
+</ScrollView>
 
