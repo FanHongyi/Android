@@ -25,8 +25,8 @@ import com.ns.developer.tagview.widget.TagCloudLinkView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import static android.R.attr.data;
 import static com.example.fanhongyi.croopinion.R.id.lineChart;
 
 /**
@@ -92,6 +92,9 @@ public class KeywordFragment extends Fragment{
         Log.i("testStrings",s);
         LineDataSet dataSet=new LineDataSet(getChartData(DATA_COUNT), s);
         //设置折线数据 getChartData返回一个List<Entry>键值对集合标识 折线点的横纵坐标，"A"代表折线标识
+        dataSet.setColor(getRandomColor());
+        dataSet.setCircleColor(Color.BLACK);
+        dataSet.setDrawCircleHole(false);
         dataSets.add(dataSet);
         LineData data = new LineData(getLabels(DATA_COUNT), dataSets);
         return data;
@@ -184,5 +187,10 @@ public class KeywordFragment extends Fragment{
 //      mLegend.setTypeface(mTf);// 字体
 
         mChart.animateX(2500); // 立即执行的动画,x轴
+    }
+
+    public int getRandomColor(){
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 }
