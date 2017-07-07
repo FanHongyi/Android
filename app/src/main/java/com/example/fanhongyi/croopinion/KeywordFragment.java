@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.ns.developer.tagview.widget.TagCloudLinkView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.data;
 import static com.example.fanhongyi.croopinion.R.id.lineChart;
 
 /**
@@ -49,12 +51,23 @@ public class KeywordFragment extends Fragment{
             @Override
             public void onTagSelected(Tag tag, int i) {
                 Toast.makeText(getActivity(), tag.getText()+"点击", Toast.LENGTH_LONG).show();
+                System.out.println(dataSets.get(0));
             }
         });
         userTags.setOnTagDeleteListener(new TagCloudLinkView.OnTagDeleteListener() {
             @Override
             public void onTagDeleted(Tag tag, int i) {
                 Toast.makeText(getActivity(), tag.getText()+"删除", Toast.LENGTH_LONG).show();
+                //LineDataSet dataSet=new LineDataSet(getChartData(DATA_COUNT), s);
+                for(int j=0;j<dataSets.size();j++){
+                    if(dataSets.get(j).getLabel().equals(tag.getText()))
+                        dataSets.remove(j);
+                }
+
+                LineData data = new LineData(getLabels(DATA_COUNT), dataSets);
+                mChart.setData(data);
+                mChart.notifyDataSetChanged();
+                showChart();
             }
         });
 
@@ -76,6 +89,7 @@ public class KeywordFragment extends Fragment{
     }
 
     private LineData getLineData(String s){
+        Log.i("testStrings",s);
         LineDataSet dataSet=new LineDataSet(getChartData(DATA_COUNT), s);
         //设置折线数据 getChartData返回一个List<Entry>键值对集合标识 折线点的横纵坐标，"A"代表折线标识
         dataSets.add(dataSet);
@@ -109,8 +123,8 @@ public class KeywordFragment extends Fragment{
             Toast.makeText(getActivity(), "\""+mTopic.getText().toString()+"\""+"已添加", Toast.LENGTH_LONG).show();
             userTags.add(new Tag(1,mTopic.getText().toString()));
             userTags.drawTags();
-            mTopic.setText("");
             mChart.setData(getLineData(mTopic.getText().toString()));
+            mTopic.setText("");
         }
     }
     private void showChart(){
