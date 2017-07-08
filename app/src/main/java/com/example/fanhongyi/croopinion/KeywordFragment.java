@@ -39,6 +39,10 @@ public class KeywordFragment extends Fragment{
     private LineChart mChart;
     private List<ILineDataSet> dataSets = new ArrayList<>();
     private final int DATA_COUNT = 7;  //设置折线图横跨距离
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9bd43ed66b8e2381b47d0c2ab10e0e3092f431cd
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +50,7 @@ public class KeywordFragment extends Fragment{
         View view = inflater.inflate(R.layout.keyword_fragment, container,false);
         mTopic = (EditText)view.findViewById(R.id.editTopic);
         userTags = (TagCloudLinkView) view.findViewById(R.id.userTags);
+<<<<<<< HEAD
         userTags.drawTags();
         userTags.setOnTagSelectListener(new TagCloudLinkView.OnTagSelectListener(){
             @Override
@@ -73,6 +78,27 @@ public class KeywordFragment extends Fragment{
 
         mChart = (LineChart) view.findViewById(lineChart);
         showChart();
+=======
+
+//        userTags.add(new Tag(1,"TAG TEXT 1"));
+//        userTags.add(new Tag(1,"TAG TEXT 2"));
+//        userTags.add(new Tag(1,"TAG TEXT 3"));
+        userTags.drawTags();
+//        userTags.setOnTagSelectListener(new TagCloudLinkView.OnTagSelectListener(){
+//            @Override
+//            public void onTagSelected(Tag tag, int i) {
+//                // write something
+//            }
+//        });
+//        userTags.setOnTagDeleteListener(new TagCloudLinkView.OnTagDeleteListener() {
+//            @Override
+//            public void onTagDeleted(Tag tag, int i) {
+//                // write something
+//            }
+//        });
+
+        mChart = (LineChart) view.findViewById(lineChart);
+>>>>>>> 9bd43ed66b8e2381b47d0c2ab10e0e3092f431cd
         return view;
     }
 
@@ -89,12 +115,17 @@ public class KeywordFragment extends Fragment{
     }
 
     private LineData getLineData(String s){
+<<<<<<< HEAD
         //Log.i("testStrings",s);
         LineDataSet dataSet=new LineDataSet(getChartData(DATA_COUNT), s);
         //设置折线数据 getChartData返回一个List<Entry>键值对集合标识 折线点的横纵坐标，"A"代表折线标识
         dataSet.setColor(getRandomColor());
         dataSet.setCircleColor(Color.BLACK);
         dataSet.setDrawCircleHole(false);
+=======
+        LineDataSet dataSet=new LineDataSet(getChartData(DATA_COUNT), s);
+        //设置折线数据 getChartData返回一个List<Entry>键值对集合标识 折线点的横纵坐标，"A"代表折线标识
+>>>>>>> 9bd43ed66b8e2381b47d0c2ab10e0e3092f431cd
         dataSets.add(dataSet);
         LineData data = new LineData(getLabels(DATA_COUNT), dataSets);
         return data;
@@ -116,6 +147,7 @@ public class KeywordFragment extends Fragment{
         }
         return chartLabels;
     }
+<<<<<<< HEAD
     
     private void addTag(){
         if(!mTopic.getText().toString().equals("")){
@@ -189,4 +221,16 @@ public class KeywordFragment extends Fragment{
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
+=======
+    //生成横坐标的单位显示，(x0 x1 x2 x3 x4)这样的List<String>集合返回
+    private void addTag(){
+        if(!mTopic.getText().toString().equals("")){
+            Toast.makeText(getActivity(), mTopic.getText().toString()+"已添加", Toast.LENGTH_LONG).show();
+            userTags.add(new Tag(1,mTopic.getText().toString()));
+            userTags.drawTags();
+            mTopic.setText("");
+            mChart.setData(getLineData(mTopic.getText().toString()));
+        }
+    }
+>>>>>>> 9bd43ed66b8e2381b47d0c2ab10e0e3092f431cd
 }
