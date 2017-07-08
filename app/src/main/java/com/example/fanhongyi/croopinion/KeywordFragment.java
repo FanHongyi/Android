@@ -89,7 +89,7 @@ public class KeywordFragment extends Fragment{
     }
 
     private LineData getLineData(String s){
-        Log.i("testStrings",s);
+        //Log.i("testStrings",s);
         LineDataSet dataSet=new LineDataSet(getChartData(DATA_COUNT), s);
         //设置折线数据 getChartData返回一个List<Entry>键值对集合标识 折线点的横纵坐标，"A"代表折线标识
         dataSet.setColor(getRandomColor());
@@ -108,18 +108,14 @@ public class KeywordFragment extends Fragment{
         }
         return chartData;
     }
-    //利用循环生成了(0,0) (2,1) (4,2) (6,3) (8,4)
-    //(0,0) (4,1) (8,2) (12,3) (16,4) 这两组折线坐标 组成List<Entry>返回
 
     private List<String> getLabels(int count){
         List<String> chartLabels = new ArrayList<>();
         for(int i=0;i<count;i++) {
-            chartLabels.add("X" + i);
+            chartLabels.add(i+"");
         }
         return chartLabels;
     }
-    //生成横坐标的单位显示，(x0 x1 x2 x3 x4)这样的List<String>集合返回
-
     
     private void addTag(){
         if(!mTopic.getText().toString().equals("")){

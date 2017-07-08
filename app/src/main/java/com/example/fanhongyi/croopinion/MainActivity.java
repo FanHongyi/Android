@@ -89,12 +89,8 @@ public class MainActivity extends AppCompatActivity
         //hideFragment(transaction);
         int id = item.getItemId();
         if (id == R.id.nav_new) {
-            Toast.makeText(getApplicationContext(), "nav_new",
-                    Toast.LENGTH_SHORT).show();
             transaction.replace(R.id.fl_content, f1);
         } else if (id == R.id.nav_report) {
-            Toast.makeText(getApplicationContext(), "nav_report",
-                    Toast.LENGTH_SHORT).show();
             transaction.replace(R.id.fl_content, f2);
         } else if (id == R.id.nav_keyword) {
             transaction.replace(R.id.fl_content, f5);
