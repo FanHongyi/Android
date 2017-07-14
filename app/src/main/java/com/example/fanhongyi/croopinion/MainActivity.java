@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 import java.net.URL;
 
-import static com.example.fanhongyi.croopinion.NetUtils.locationQuery;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
