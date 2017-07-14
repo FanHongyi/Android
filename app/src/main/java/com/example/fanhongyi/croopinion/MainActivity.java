@@ -1,12 +1,14 @@
 package com.example.fanhongyi.croopinion;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,25 +22,69 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URL;
+
+import static com.example.fanhongyi.croopinion.NetUtils.locationQuery;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Fragment f1,f2,f3,f4,f5,f6,f7;
+    private Fragment f1,f2,f5,f6;
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private TextView mUserText;
+
+    public static String data="";
     public static String[] newTopic=new String[10];
+
+    class getDataTask extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected String doInBackground(Void... params) {
+            String r="";
+            try {
+                URL u=NetUtils.buildUrl();
+                r=NetUtils.getResponseFromHttpUrl(u);
+                Log.i("doInBackground",r);
+                data = r;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //return null;
+            }
+            return r;
+            //return data;
+        }
+        @Override
+        protected void onPostExecute(String msg) {
+            Log.i("onPostExecute",msg);
+            //data=msg;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getDataTask dataTask=new getDataTask();
+        dataTask.execute();
+        while(data.equals("")==true){
+            try{
+                Thread.currentThread().sleep(1000);
+                Log.i("Sleep","Waiting");
+            }catch(InterruptedException ie){
+                ie.printStackTrace();
+            }
+        }
+        NetUtils.processData(data);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent intent=getIntent();
         String userValue=intent.getStringExtra("u");
 
-        newTopic[0]="a";
-        newTopic[1]="b";
+//        newTopic[0]="a";
+//        newTopic[1]="b";
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();

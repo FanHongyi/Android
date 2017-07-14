@@ -29,18 +29,5 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_gravity="top"/>
-
-        <com.ns.developer.tagview.widget.TagCloudLinkView
-            android:id="@+id/tagCloud"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="4dp"
-            android:background="#ffffff"
-            app:isDeletable="false"
-            app:tagLayoutColor="#808080"
-            app:tagTextSize="8sp"
-            app:tagTextColor="#ff9acd32"
-            app:deletableTextSize="8sp"
-            app:deletableTextColor="#ff9acd32"/>
     </LinearLayout>
 </ScrollView>

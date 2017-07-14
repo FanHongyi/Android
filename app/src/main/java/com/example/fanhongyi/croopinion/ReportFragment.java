@@ -62,19 +62,6 @@ public class ReportFragment extends Fragment{
         mLineChart.setData(getLineData("test"));
         mLineChart.notifyDataSetChanged();
         showLineChart();
-
-        cloud = (TagCloudLinkView) view.findViewById(R.id.tagCloud);
-        cloud.add(new Tag(1,"TAG TEXT 1"));
-        cloud.add(new Tag(1,"TAG TEXT 2"));
-        cloud.add(new Tag(1,"TAG TEXT 3"));
-        cloud.drawTags();
-        cloud.setOnTagSelectListener(new TagCloudLinkView.OnTagSelectListener(){
-            @Override
-            public void onTagSelected(Tag tag, int i) {
-                // write something
-            }
-        });
-
         return view;
     }
 
