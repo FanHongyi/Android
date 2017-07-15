@@ -42,14 +42,14 @@ public class NewFragment extends Fragment{
 
         hot0.setText(MainActivity.newTopic[0]);
         hot1.setText(MainActivity.newTopic[1]);
-        hot2.setText("topic 2");
-        hot3.setText("topic 3");
-        hot4.setText("topic 4");
-        hot5.setText("topic 5");
-        hot6.setText("topic 6");
-        hot7.setText("topic 7");
-        hot8.setText("topic 8");
-        hot9.setText("topic 9");
+        hot2.setText(MainActivity.newTopic[2]);
+        hot3.setText(MainActivity.newTopic[3]);
+        hot4.setText(MainActivity.newTopic[4]);
+        hot5.setText(MainActivity.newTopic[5]);
+        hot6.setText(MainActivity.newTopic[6]);
+        hot7.setText(MainActivity.newTopic[7]);
+        hot8.setText(MainActivity.newTopic[8]);
+        hot9.setText(MainActivity.newTopic[9]);
 
         return view;
     }

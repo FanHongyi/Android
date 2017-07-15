@@ -23,7 +23,7 @@ import java.util.Scanner;
 
 public class NetUtils {
     //http://api.openweathermap.org/data/2.5/forecast/daily?q=Changsha&mode=json&unit=metric&cnt=7&APPID=04308f28de794253444ecc10eca4f1ac
-    private static final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+    private static final String BASE_URL = "";
     /* The format we want our API to return */
     private static final String format = "json";
     /* The units we want our API to return */
@@ -41,7 +41,7 @@ public class NetUtils {
     private static final String APPID_PARAM = "APPID";
 
     public static URL buildUrl() {
-        Uri weatherQueryUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+        Uri weatherQueryUri = Uri.parse(BASE_URL).buildUpon()
                 .appendQueryParameter(FORMAT_PARAM, format)
                 .appendQueryParameter(UNITS_PARAM, units)
                 .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
@@ -78,37 +78,59 @@ public class NetUtils {
     }
 
     public static void processData(String data) {
+        if(data != null && data.startsWith("\ufeff"))
+        {
+            data =  data.substring(1);
+        }
         try {
             JSONObject json = new JSONObject(data);
-            JSONObject cityJson = json.getJSONObject("city");
-            String cityName = cityJson.getString("name");
-            JSONObject cityCoord = cityJson.getJSONObject("coord");
-            double cityLatitude = cityCoord.getDouble("lat");
-            double cityLongitude = cityCoord.getDouble("lon");
-            JSONArray weatherArray = json.getJSONArray("list");
+//            JSONObject cityJson = json.getJSONObject("city");
+//            String cityName = cityJson.getString("name");
+//            JSONObject cityCoord = cityJson.getJSONObject("coord");
+//            double cityLatitude = cityCoord.getDouble("lat");
+//            double cityLongitude = cityCoord.getDouble("lon");
+//            JSONArray weatherArray = json.getJSONArray("list");
 
-            for(int i = 0; i < 7; i++) {
-                // These are the values that will be collected.
-                // Get the JSON object representing the day
-                JSONObject dayForecast = weatherArray.getJSONObject(i);
-                MainActivity.dt[i]=dayForecast.getLong("dt");
-                MainActivity.pressure[i] = dayForecast.getDouble("pressure");
-                MainActivity.humidity[i] = dayForecast.getInt("humidity");
-                MainActivity.windSpeed[i] = dayForecast.getDouble("speed");
-                MainActivity.windDirection[i] = dayForecast.getDouble("deg");
-                // Description is in a child array called "weather", which is 1 element long.
-                // That element also contains a weather code.
-                JSONObject weatherObject =
-                        dayForecast.getJSONArray("weather").getJSONObject(0);
-                MainActivity.description[i] = weatherObject.getString("description");
-                MainActivity.weatherId[i] = weatherObject.getInt("id");
-
-                // Temperatures are in a child object called "temp".  Try not to name variables
-                // "temp" when working with temperature.  It confuses everybody.
-                JSONObject temperatureObject = dayForecast.getJSONObject("temp");
-                MainActivity.high[i] = temperatureObject.getDouble("max");
-                MainActivity.low[i] = temperatureObject.getDouble("min");
+//            String keywordString=json.getString("keywords");
+//            JSONArray keywordArray=JSONArray.
+//            for(int i = 0; i < 10; i++){
+//                MainActivity.newTopic[i]=keyword[i];
+//            }
+            JSONArray keywordsArray=json.getJSONArray("keywords");
+            for(int i = 0; i < 10; i++){
+                MainActivity.newTopic[i]=keywordsArray.getString(i);
             }
+            JSONArray tendencyArray=json.getJSONArray("tendency");
+            for(int i = 0; i < 3; i++){
+                MainActivity.reportTendency[i]=(float)tendencyArray.getDouble(i);
+            }
+            JSONArray frequencyArray=json.getJSONArray("frequency");
+            for(int i = 0; i < 7; i++){
+                MainActivity.reportFrequency[i]=(float)frequencyArray.getDouble(i);
+            }
+
+//            for(int i = 0; i < 7; i++) {
+//                // These are the values that will be collected.
+//                // Get the JSON object representing the day
+//                JSONObject dayForecast = weatherArray.getJSONObject(i);
+//                MainActivity.dt[i]=dayForecast.getLong("dt");
+//                MainActivity.pressure[i] = dayForecast.getDouble("pressure");
+//                MainActivity.humidity[i] = dayForecast.getInt("humidity");
+//                MainActivity.windSpeed[i] = dayForecast.getDouble("speed");
+//                MainActivity.windDirection[i] = dayForecast.getDouble("deg");
+//                // Description is in a child array called "weather", which is 1 element long.
+//                // That element also contains a weather code.
+//                JSONObject weatherObject =
+//                        dayForecast.getJSONArray("weather").getJSONObject(0);
+//                MainActivity.description[i] = weatherObject.getString("description");
+//                MainActivity.weatherId[i] = weatherObject.getInt("id");
+//
+//                // Temperatures are in a child object called "temp".  Try not to name variables
+//                // "temp" when working with temperature.  It confuses everybody.
+//                JSONObject temperatureObject = dayForecast.getJSONObject("temp");
+//                MainActivity.high[i] = temperatureObject.getDouble("max");
+//                MainActivity.low[i] = temperatureObject.getDouble("min");
+//            }
         } catch(JSONException e)
         {
             Log.wtf("json", e);

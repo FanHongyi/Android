@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -50,10 +51,13 @@ public class ReportFragment extends Fragment{
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.report_fragment, container,false);
 
-        float pos=66.6f,neg=13.4f,neu=20f;
+        //float pos=66.6f,neg=13.4f,neu=20f;
 
         this.context = getActivity();
         mPieChart = (PieChart) view.findViewById(R.id.pieChart);
+
+        float pos= MainActivity.reportTendency[0],neg=MainActivity.reportTendency[1],neu=MainActivity.reportTendency[2];
+
         PieData mPieData = getPieData(pos,neg,neu);
         showPieChart(mPieChart, mPieData);
 
@@ -250,7 +254,8 @@ public class ReportFragment extends Fragment{
         private List<Entry> getChartData(int count){
             List<Entry> chartData = new ArrayList<>();
             for(int i=0;i<count;i++){
-                chartData.add(new Entry((float) (Math.random() * 20) + 3, i));
+                //chartData.add(new Entry((float) (Math.random() * 20) + 3, i));
+                chartData.add(new Entry(MainActivity.reportFrequency[i], i));
             }
             return chartData;
         }

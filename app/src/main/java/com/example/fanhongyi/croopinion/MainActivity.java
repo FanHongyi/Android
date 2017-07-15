@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity
     private FragmentTransaction transaction;
     private TextView mUserText;
 
-    public static String data="";
+    public static String data="{\"keywords\":[\"w1\",\"w2\",\"w3\",\"w4\",\"w5\",\"w6\",\"w7\",\"w8\",\"w9\",\"w10\"],\"tendency\":[66.6,13.4,20],\"frequency\":[1,2,3,4,5,6,7]}";
     public static String[] newTopic=new String[10];
+    public static float[] reportTendency=new float[3];
+    public static float[] reportFrequency=new float[7];
 
     class getDataTask extends AsyncTask<Void, Void, String>
     {
@@ -64,25 +66,22 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getDataTask dataTask=new getDataTask();
-        dataTask.execute();
-        while(data.equals("")==true){
-            try{
-                Thread.currentThread().sleep(1000);
-                Log.i("Sleep","Waiting");
-            }catch(InterruptedException ie){
-                ie.printStackTrace();
-            }
-        }
+//        getDataTask dataTask=new getDataTask();
+//        dataTask.execute();
+//        while(data.equals("")==true){
+//            try{
+//                Thread.currentThread().sleep(1000);
+//                Log.i("Sleep","Waiting");
+//            }catch(InterruptedException ie){
+//                ie.printStackTrace();
+//            }
+//        }
         NetUtils.processData(data);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent intent=getIntent();
         String userValue=intent.getStringExtra("u");
-
-//        newTopic[0]="a";
-//        newTopic[1]="b";
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
