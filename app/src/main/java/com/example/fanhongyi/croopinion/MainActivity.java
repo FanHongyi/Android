@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
 //        getDataTask dataTask=new getDataTask();
 //        dataTask.execute();
-//        while(data.equals("")==true){
+//        while(data.equals("")){
 //            try{
 //                Thread.currentThread().sleep(1000);
 //                Log.i("Sleep","Waiting");

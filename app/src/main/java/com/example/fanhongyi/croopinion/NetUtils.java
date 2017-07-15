@@ -84,18 +84,7 @@ public class NetUtils {
         }
         try {
             JSONObject json = new JSONObject(data);
-//            JSONObject cityJson = json.getJSONObject("city");
-//            String cityName = cityJson.getString("name");
-//            JSONObject cityCoord = cityJson.getJSONObject("coord");
-//            double cityLatitude = cityCoord.getDouble("lat");
-//            double cityLongitude = cityCoord.getDouble("lon");
-//            JSONArray weatherArray = json.getJSONArray("list");
 
-//            String keywordString=json.getString("keywords");
-//            JSONArray keywordArray=JSONArray.
-//            for(int i = 0; i < 10; i++){
-//                MainActivity.newTopic[i]=keyword[i];
-//            }
             JSONArray keywordsArray=json.getJSONArray("keywords");
             for(int i = 0; i < 10; i++){
                 MainActivity.newTopic[i]=keywordsArray.getString(i);
@@ -108,29 +97,59 @@ public class NetUtils {
             for(int i = 0; i < 7; i++){
                 MainActivity.reportFrequency[i]=(float)frequencyArray.getDouble(i);
             }
+        } catch(JSONException e)
+        {
+            Log.wtf("json", e);
+        }
+    }
 
-//            for(int i = 0; i < 7; i++) {
-//                // These are the values that will be collected.
-//                // Get the JSON object representing the day
-//                JSONObject dayForecast = weatherArray.getJSONObject(i);
-//                MainActivity.dt[i]=dayForecast.getLong("dt");
-//                MainActivity.pressure[i] = dayForecast.getDouble("pressure");
-//                MainActivity.humidity[i] = dayForecast.getInt("humidity");
-//                MainActivity.windSpeed[i] = dayForecast.getDouble("speed");
-//                MainActivity.windDirection[i] = dayForecast.getDouble("deg");
-//                // Description is in a child array called "weather", which is 1 element long.
-//                // That element also contains a weather code.
-//                JSONObject weatherObject =
-//                        dayForecast.getJSONArray("weather").getJSONObject(0);
-//                MainActivity.description[i] = weatherObject.getString("description");
-//                MainActivity.weatherId[i] = weatherObject.getInt("id");
-//
-//                // Temperatures are in a child object called "temp".  Try not to name variables
-//                // "temp" when working with temperature.  It confuses everybody.
-//                JSONObject temperatureObject = dayForecast.getJSONObject("temp");
-//                MainActivity.high[i] = temperatureObject.getDouble("max");
-//                MainActivity.low[i] = temperatureObject.getDouble("min");
-//            }
+    public static URL buildKeywordUrl(String keyword) {
+        Uri weatherQueryUri = Uri.parse(BASE_URL).buildUpon()
+                .appendQueryParameter(FORMAT_PARAM, format)
+                .appendQueryParameter(UNITS_PARAM, units)
+                .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                .appendQueryParameter(APPID_PARAM, "04308f28de794253444ecc10eca4f1ac")
+                .build();
+
+        try {
+            URL weatherQueryUrl = new URL(weatherQueryUri.toString());
+            return weatherQueryUrl;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static String getResponseFromKeywordHttpUrl(URL url) throws IOException {
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        try {
+            InputStream in = urlConnection.getInputStream();
+
+            Scanner scanner = new Scanner(in);
+            scanner.useDelimiter("\\A");
+
+            boolean hasInput = scanner.hasNext();
+            String response = null;
+            if (hasInput) {
+                response = scanner.next();
+            }
+            scanner.close();
+            return response;
+        } finally {
+            urlConnection.disconnect();
+        }
+    }
+
+    public static void processKeywordData(String data) {
+        if(data != null && data.startsWith("\ufeff"))
+        {
+            data =  data.substring(1);
+        }
+        try {
+            JSONObject json = new JSONObject(data);
+            JSONArray frequencyArray=json.getJSONArray("frequency");
+            for(int i = 0; i < 7; i++){
+                KeywordFragment.keywordFrequency[i]=(float)frequencyArray.getDouble(i);
+            }
         } catch(JSONException e)
         {
             Log.wtf("json", e);

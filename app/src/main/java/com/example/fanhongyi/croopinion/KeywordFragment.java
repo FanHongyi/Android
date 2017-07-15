@@ -2,6 +2,7 @@ package com.example.fanhongyi.croopinion;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,10 +24,12 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.ns.developer.tagview.entity.Tag;
 import com.ns.developer.tagview.widget.TagCloudLinkView;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.example.fanhongyi.croopinion.MainActivity.data;
 import static com.example.fanhongyi.croopinion.R.id.lineChart;
 
 /**
@@ -39,6 +42,8 @@ public class KeywordFragment extends Fragment{
     private LineChart mChart;
     private List<ILineDataSet> dataSets = new ArrayList<>();
     private final int DATA_COUNT = 7;  //设置折线图横跨距离
+    public static String keywordData="{\"frequency\":[7,6,5,4,3,2,1]}";
+    public static float[] keywordFrequency=new float[7];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,8 +55,8 @@ public class KeywordFragment extends Fragment{
         userTags.setOnTagSelectListener(new TagCloudLinkView.OnTagSelectListener(){
             @Override
             public void onTagSelected(Tag tag, int i) {
-                Toast.makeText(getActivity(), tag.getText()+"点击", Toast.LENGTH_LONG).show();
-                System.out.println(dataSets.get(0));
+                //Toast.makeText(getActivity(), tag.getText()+"点击", Toast.LENGTH_LONG).show();
+                //System.out.println(dataSets.get(0));
             }
         });
         userTags.setOnTagDeleteListener(new TagCloudLinkView.OnTagDeleteListener() {
@@ -83,7 +88,8 @@ public class KeywordFragment extends Fragment{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addTag();
+                if(!mTopic.getText().toString().equals(""))
+                    addTag(mTopic.getText().toString());
             }
         });
     }
@@ -104,7 +110,8 @@ public class KeywordFragment extends Fragment{
     private List<Entry> getChartData(int count){
         List<Entry> chartData = new ArrayList<>();
         for(int i=0;i<count;i++){
-            chartData.add(new Entry((float) (Math.random() * 20) + 3, i));
+            //chartData.add(new Entry((float) (Math.random() * 20) + 3, i));
+            chartData.add(new Entry(KeywordFragment.keywordFrequency[i], i));
         }
         return chartData;
     }
@@ -117,14 +124,34 @@ public class KeywordFragment extends Fragment{
         return chartLabels;
     }
     
-    private void addTag(){
-        if(!mTopic.getText().toString().equals("")){
-            Toast.makeText(getActivity(), "\""+mTopic.getText().toString()+"\""+"已添加", Toast.LENGTH_LONG).show();
-            userTags.add(new Tag(1,mTopic.getText().toString()));
-            userTags.drawTags();
-            mChart.setData(getLineData(mTopic.getText().toString()));
-            mTopic.setText("");
-        }
+    private void addTag(String topic){
+//        String data = "",keywordData="";
+//        try {
+//            URL u = NetUtils.buildKeywordUrl(topic);
+//            data = NetUtils.getResponseFromKeywordHttpUrl(u);
+//            keywordData = data;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            //return null;
+//        }
+//        while(keywordData.equals("")){
+//            try{
+//                Thread.currentThread().sleep(1000);
+//                Log.i("Sleep","Waiting");
+//            }catch(InterruptedException ie){
+//                ie.printStackTrace();
+//            }
+//        }
+        NetUtils.processKeywordData(keywordData);
+
+        Toast.makeText(getActivity(), "\""+topic+"\""+"已添加", Toast.LENGTH_LONG).show();
+        userTags.add(new Tag(1,topic));
+        userTags.drawTags();
+        mChart.setData(getLineData(topic));
+        mTopic.setText("");
+        keywordData="";
+        for(int i = 0; i < 7; i++)
+            keywordFrequency[i]=0;
     }
     private void showChart(){
         mChart.setDrawBorders(false);  //是否在折线图上添加边框
